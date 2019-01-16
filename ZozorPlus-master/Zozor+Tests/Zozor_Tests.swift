@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Zozor_
+@testable import CountOnMe
 
 class Zozor_Tests: XCTestCase {
     
