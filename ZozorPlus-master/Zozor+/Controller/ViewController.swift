@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var stringNumbers: [String] = [String()]
     var operators: [String] = ["+"]
     var index = 0
+    //A METTRE HELPER
     var isExpressionCorrect: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -31,6 +32,7 @@ class ViewController: UIViewController {
         return true
     }
     
+    //A METTRE HELPER
     var canAddOperator: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -50,7 +52,7 @@ class ViewController: UIViewController {
     @IBOutlet var numberButtons: [UIButton]!
     
     // MARK: - Action
-    
+    //VOIR ICI breakpoint
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         for (i, numberButton) in numberButtons.enumerated() {
             if sender == numberButton {
@@ -76,7 +78,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equal() {
+       // aremplacer par displayTotal dans controller
         calculateTotal()
+        //display total
     }
     
     
@@ -91,6 +95,7 @@ class ViewController: UIViewController {
         updateDisplay()
     }
     
+    //copier coller dans lutilitaire
     func calculateTotal() {
         if !isExpressionCorrect {
             return
@@ -106,10 +111,12 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
+        // a enleevr a mettre dans la nouvelle focntion
         textView.text = textView.text + "=\(total)"
         
         clear()
+        
+        // return total
     }
     
     func updateDisplay() {
