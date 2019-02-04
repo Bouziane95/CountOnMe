@@ -10,121 +10,67 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: - Properties
-    var stringNumbers: [String] = [String()]
-    var operators: [String] = ["+"]
-    var index = 0
-    //A METTRE HELPER
-    var isExpressionCorrect: Bool {
-        if let stringNumber = stringNumbers.last {
-            if stringNumber.isEmpty {
-                if stringNumbers.count == 1 {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
-                } else {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
-                }
-                return false
-            }
-        }
-        return true
-    }
+    var CountOnMeU = viewControllerUtilities()
     
-    //A METTRE HELPER
-    var canAddOperator: Bool {
-        if let stringNumber = stringNumbers.last {
-            if stringNumber.isEmpty {
-                let alertVC = UIAlertController(title: "Zéro!", message: "Expression incorrecte !", preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(alertVC, animated: true, completion: nil)
-                return false
-            }
-        }
-        return true
-    }
-    
-    
+   
     // MARK: - Outlets
     
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet var numberButtons: [UIButton]!
+    @IBOutlet var numberButtons : [UIButton]!
+    @IBOutlet var operators: [UIButton]!
+    @IBOutlet weak var point: UIButton!
     
     // MARK: - Action
-    //VOIR ICI breakpoint
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-        for (i, numberButton) in numberButtons.enumerated() {
-            if sender == numberButton {
-                addNewNumber(i)
-            }
-        }
-    }
-    
-    @IBAction func plus() {
-        if canAddOperator {
-            operators.append("+")
-            stringNumbers.append("")
+        for (i, numberButton) in numberButtons.enumerated() where sender == numberButton{
+            CountOnMeU.addNewNumber(i)
             updateDisplay()
         }
     }
     
-    @IBAction func minus() {
-        if canAddOperator {
-            operators.append("-")
-            stringNumbers.append("")
+    @IBAction func tappedPointButton(_ sender: Any){
+        if CountOnMeU.canAddDecimal{
+            CountOnMeU.addDecimal()
             updateDisplay()
+        } else {
+            showAlert(message: "Vous ne pouvez pas mettre 2 points")
         }
+        
     }
     
     @IBAction func equal() {
-       // aremplacer par displayTotal dans controller
-        calculateTotal()
-        //display total
+        if !CountOnMeU.isExpressionCorrect{
+            showAlert(message: "opération invalide")
+        } else {
+            let total = CountOnMeU.calculateTotal()
+            textView.text! += "\n =\(total)"
+        }
+    }
+
+    @IBAction func operandButtonTapped(_ sender: UIButton){
+       performOperation(operand: (sender.titleLabel?.text!)!)
+    }
+    
+    @IBAction func allClear(_ sender: UIButton) {
+        CountOnMeU.allClear()
+        textView.text = "0"
     }
     
     
     // MARK: - Methods
-    
-    func addNewNumber(_ newNumber: Int) {
-        if let stringNumber = stringNumbers.last {
-            var stringNumberMutable = stringNumber
-            stringNumberMutable += "\(newNumber)"
-            stringNumbers[stringNumbers.count-1] = stringNumberMutable
-        }
-        updateDisplay()
-    }
-    
-    //copier coller dans lutilitaire
-    func calculateTotal() {
-        if !isExpressionCorrect {
-            return
-        }
-        
-        var total = 0
-        for (i, stringNumber) in stringNumbers.enumerated() {
-            if let number = Int(stringNumber) {
-                if operators[i] == "+" {
-                    total += number
-                } else if operators[i] == "-" {
-                    total -= number
-                }
-            }
-        }
-        // a enleevr a mettre dans la nouvelle focntion
-        textView.text = textView.text + "=\(total)"
-        
-        clear()
-        
-        // return total
+    func addNewNumber(message: String){
+        let alertVC = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     func updateDisplay() {
         var text = ""
-        for (i, stringNumber) in stringNumbers.enumerated() {
+        let stack = CountOnMeU.stringNumbers.enumerated()
+        for (i, stringNumber) in stack {
             // Add operator
             if i > 0 {
-                text += operators[i]
+                text += CountOnMeU.operators[i]
             }
             // Add number
             text += stringNumber
@@ -132,9 +78,29 @@ class ViewController: UIViewController {
         textView.text = text
     }
     
-    func clear() {
-        stringNumbers = [String()]
-        operators = ["+"]
-        index = 0
+    func showAlert(message: String){
+        let AlertVC = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+        AlertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(AlertVC,animated: true, completion: nil)
+    }
+    
+    func performOperation(operand: String){
+        if CountOnMeU.canAddOperator{
+            let result = CountOnMeU.formerResult
+            if result != nil {
+                CountOnMeU.roundResult(result)
+                updateDisplayForResultReuse(operand: operand)
+            } else {
+                CountOnMeU.sendOperand(operand: operand, number: "")
+                updateDisplay()}
+        } else {
+                self.showAlert(message: "Expression incorrecte")
+            }
+    }
+    
+    func updateDisplayForResultReuse(operand: String){
+        updateDisplay()
+        CountOnMeU.sendOperand(operand: operand, number: "")
+        updateDisplay()
     }
 }
