@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8402952421EF832B0045CFAD /* CountOnMeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402952321EF832B0045CFAD /* CountOnMeModel.swift */; };
-		84C394C221F5E64A0027670D /* ViewControllerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C394C121F5E64A0027670D /* ViewControllerUtilities.swift */; };
+		84C394C221F5E64A0027670D /* ModelCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C394C121F5E64A0027670D /* ModelCalculator.swift */; };
 		C926DADD1D7581BB00477020 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926DADC1D7581BB00477020 /* AppDelegate.swift */; };
 		C926DADF1D7581BB00477020 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926DADE1D7581BB00477020 /* ViewController.swift */; };
 		C926DAE21D7581BB00477020 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C926DAE01D7581BB00477020 /* Main.storyboard */; };
@@ -37,8 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8402952321EF832B0045CFAD /* CountOnMeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountOnMeModel.swift; sourceTree = "<group>"; };
-		84C394C121F5E64A0027670D /* ViewControllerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtilities.swift; sourceTree = "<group>"; };
+		84C394C121F5E64A0027670D /* ModelCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCalculator.swift; sourceTree = "<group>"; };
 		C926DAD91D7581BB00477020 /* CountOnMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CountOnMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C926DADC1D7581BB00477020 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C926DADE1D7581BB00477020 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				C926DADE1D7581BB00477020 /* ViewController.swift */,
-				84C394C121F5E64A0027670D /* ViewControllerUtilities.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -101,7 +98,7 @@
 		8402952121EF7C940045CFAD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8402952321EF832B0045CFAD /* CountOnMeModel.swift */,
+				84C394C121F5E64A0027670D /* ModelCalculator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -305,10 +302,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8402952421EF832B0045CFAD /* CountOnMeModel.swift in Sources */,
 				C926DADF1D7581BB00477020 /* ViewController.swift in Sources */,
 				C926DADD1D7581BB00477020 /* AppDelegate.swift in Sources */,
-				84C394C221F5E64A0027670D /* ViewControllerUtilities.swift in Sources */,
+				84C394C221F5E64A0027670D /* ModelCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
