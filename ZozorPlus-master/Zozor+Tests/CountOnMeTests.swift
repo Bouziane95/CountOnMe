@@ -7,7 +7,7 @@ import XCTest
 @testable import CountOnMe
 
 class CountOnMeTests: XCTestCase {
-    var countOnMeU = viewControllerUtilities()
+    var countOnMeU = modelCalculator()
     
     override func setUp() {
         super.setUp()
